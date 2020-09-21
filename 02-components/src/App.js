@@ -1,17 +1,8 @@
 import React from "react";
-import logo from './logo.svg'
-
-function Alert(props) {
-    return (
-        <React.Fragment>
-        <div style={{
-            backgroundColor:props.bgcolor
-        }}>
-            {props.message}
-        </div>
-        </React.Fragment>
-    )
-}
+import logo from './logo.svg';
+import guitar from './acoustic_guitar.jpg';
+import Alert from './Alert';
+import CreateParagraph from './CreateParagraph';
 
 function SayHello(props) {
     return (
@@ -19,13 +10,15 @@ function SayHello(props) {
     )
 }
 
-function CreateParagraph() {
+
+function ImageFrame(props) {
     return (
         <React.Fragment>
-        <h2>This is a header</h2>
-        <p>This is a paragraph</p>
+            <img src={props.image} style={{
+                border:"1px solid black"
+            }}/>
         </React.Fragment>
-    );
+    )
 }
 
 function App() {
@@ -39,7 +32,8 @@ function App() {
       <CreateParagraph/>
       <Alert message="Everything's fine now" bgcolor="green"/>
       <Alert message={message} bgcolor="yellow"/>
-
+      <ImageFrame image={logo}/>
+      <ImageFrame image={guitar}/>
     </React.Fragment>
   );
 }
