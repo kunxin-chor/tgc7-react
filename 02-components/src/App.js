@@ -1,10 +1,12 @@
 import React from "react";
 
-function sayHello() {
-    return "Hi there";
+function SayHello() {
+    return (
+        <p>Hello there</p>
+    )
 }
 
-function createParagraph() {
+function CreateParagraph() {
     return (
         <React.Fragment>
         <h2>This is a header</h2>
@@ -18,8 +20,8 @@ function App() {
   return (
     <React.Fragment>
       <h1>Hello {name}</h1>
-      {sayHello()}
-      {createParagraph()}
+      <SayHello/>
+      <CreateParagraph/>
     </React.Fragment>
   );
 }
