@@ -27,20 +27,33 @@ export default class SurveyForm extends React.Component {
   };
 
   async componentDidMount() {
-      let request = axios.get('hobbies.json');     
-      let request2 = axios.get('countries.json');      
+    /*
+        let response = await axios.get('hobbies.json');
+        let hobbies = response.data;
 
-      let response = await request;
-      let response2 = await request2;
+        let response2 = await axios.get('countries.json');
+        let countries = response2.data;
 
-      let hobbies = response.data;
-      let countries = response2.data;
-      
-      
-      this.setState({
+        this.setState({
           'all_hobbies': hobbies,
           'all_countries': countries
       })
+
+    */
+
+    let request = axios.get("hobbies.json");
+    let request2 = axios.get("countries.json");
+
+    let response = await request;
+    let response2 = await request2;
+
+    let hobbies = response.data;
+    let countries = response2.data;
+
+    this.setState({
+      all_hobbies: hobbies,
+      all_countries: countries
+    });
   }
 
   renderGenders() {
