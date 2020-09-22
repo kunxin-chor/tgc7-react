@@ -20,7 +20,9 @@ export default class TaskList extends React.Component {
                 done: false
             }
         ],
-        new_task_description:""
+        new_task_description:"",
+        modified_task_description:"",
+        task_being_edited:0
     }
 
     updateFormField = (event) => {
@@ -36,7 +38,8 @@ export default class TaskList extends React.Component {
             'description': this.state.new_task_description
         };
         this.setState({
-            'tasks': [...this.state.tasks, newTask]
+            'tasks': [...this.state.tasks, newTask],
+            'new_task_description': ''
         })
     }
 
@@ -115,17 +118,77 @@ export default class TaskList extends React.Component {
         })
     }
 
+    updateTaskDescription = (task) => {
+        let modifiedTask = {
+            ...task, description: this.state.modified_task_description
+        }
+
+        let index = this.state.tasks.findIndex( (t) => {
+            return t.id === modifiedTask.id
+        })
+
+        let modifiedTaskList = [ ...this.state.tasks.slice(0, index),
+                                 modifiedTask,
+                                 ...this.state.tasks.slice(index+1)
+        ]
+
+        this.setState({
+            'tasks': modifiedTaskList,
+            'task_being_edited': 0
+        })
+    }
+
+    deleteTask = (task) => {
+        let index = this.state.tasks.findIndex ( (t)=> {
+            return t.id === task.id
+        })
+
+        let modifiedTaskList = [ ...this.state.tasks.slice(0, index),
+                                 ...this.state.tasks.slice(index+1)
+        ];
+
+        this.setState({
+            'tasks': modifiedTaskList
+        })
+    }
+
+    startEditingTask = (task) => {
+        this.setState({
+            'task_being_edited': task.id,
+            'modified_task_description': task.description
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
                 <h1>Task List</h1>
                 <ul>
                     {this.state.tasks.map(t=>{
-                        return <li>
-                            <input type="checkbox" checked={t.done} onChange={()=>{
-                                this.updateTaskStatus(t)
-                            }}/>{t.description} 
-                        </li>
+                        if (t.id !== this.state.task_being_edited) {
+                             return <li>
+                                <button onClick={()=>{
+                                    this.deleteTask(t)
+                                }}>Delete</button>
+                                <button onClick={()=>{
+                                    this.startEditingTask(t)
+                                }}>Edit</button>
+                                <input type="checkbox" checked={t.done} onChange={()=>{
+                                    this.updateTaskStatus(t)
+                                }}/>{t.description} 
+                            </li>
+                        } else {
+                            return <li>
+                                <input type="text" name="modified_task_description"
+                                                   value={this.state.modified_task_description}
+                                                   onChange={this.updateFormField}/>
+                                <button onClick={()=>{
+                                    this.updateTaskDescription(t)
+                                }}>Modify</button>
+                            </li>
+
+                        }
+                       
                     })}
                 </ul> 
                 <h2>Add New Task</h2>           
