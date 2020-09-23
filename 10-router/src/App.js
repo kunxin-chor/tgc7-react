@@ -5,8 +5,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import ContactFormSubmitted from "./pages/ContactFormSubmitted";
 
 import "bootstrap/dist/css/bootstrap.css";
+
 
 function App() {
   return (
@@ -37,6 +39,10 @@ function App() {
           <Route exact path="/contact">
             <ContactUsPage />
           </Route>
+          <Route exact path="/form-submitted">
+              <ContactFormSubmitted/>
+          </Route>
+
         </Switch>
 
         <div>
