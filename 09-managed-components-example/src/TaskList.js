@@ -1,4 +1,7 @@
 import React from 'react'
+import AddNewTask from "./AddNewTask"
+import EditTask from "./EditTask"
+import Task from "./Task"
 
 export default class TaskList extends React.Component {
 
@@ -42,62 +45,6 @@ export default class TaskList extends React.Component {
             'new_task_description': ''
         })
     }
-
-    // updateTaskStatus = (task) => {
-        
-    //     // make a copy of that task
-    //     // note: the spread operator also works for objects
-    //     let modifiedTask = {...task};
-
-    //     // change the copy
-    //     modifiedTask.done = !task.done;
-
-    //     // make a copy of the original array
-    //     let modifiedTaskList = [...this.state.tasks];
-
-    //     // in the copy, replace the old task with the modified task
-    //     let index = modifiedTaskList.findIndex(function(element){
-    //         return element.id === modifiedTask.id;
-    //     })
-
-    //     /*
-    //     let index = -1;
-    //     for (let i=0; i < modifiedTaskList.length; i++) {
-    //         if (modifiedTasks[i].id == modifiedTask.id) {
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-    //     */
-
-    //     modifiedTaskList[index] = modifiedTask;
-
-    //     // save the copy of the array back to the state
-    //     this.setState({
-    //         tasks: modifiedTaskList
-    //     })
-
-
-    // }
-
-    // updateTaskStatus = (task) => {
-    //     let modifiedTask = {
-    //         ...task, done: !task.done
-    //     }
-
-    //     let modifiedTaskList = this.state.tasks.map( (task)=> {
-    //         if (task.id !== modifiedTask.id) {
-    //             return task;
-    //         } else {
-    //             return modifiedTask;
-    //         }
-    //     })
-
-    //     this.setState({
-    //         'tasks': modifiedTaskList
-    //     })
- 
-    // }
 
     updateTaskStatus = (task) => {
         let modifiedTask = {
@@ -166,37 +113,29 @@ export default class TaskList extends React.Component {
                 <ul>
                     {this.state.tasks.map(t=>{
                         if (t.id !== this.state.task_being_edited) {
-                             return <li>
-                                <button onClick={()=>{
-                                    this.deleteTask(t)
-                                }}>Delete</button>
-                                <button onClick={()=>{
-                                    this.startEditingTask(t)
-                                }}>Edit</button>
-                                <input type="checkbox" checked={t.done} onChange={()=>{
-                                    this.updateTaskStatus(t)
-                                }}/>{t.description} 
-                            </li>
+                             return <Task
+                                deleteTask={this.deleteTask}
+                                startEditingTask={this.startEditingTask}
+                                updateTaskStatus={this.updateTaskStatus}
+                                task={t}
+                             />
                         } else {
-                            return <li>
-                                <input type="text" name="modified_task_description"
-                                                   value={this.state.modified_task_description}
-                                                   onChange={this.updateFormField}/>
-                                <button onClick={()=>{
-                                    this.updateTaskDescription(t)
-                                }}>Modify</button>
-                            </li>
+                            return <EditTask
+                                modified_task_description={this.state.modified_task_description}
+                                updateFormField={this.updateFormField}
+                                updateTaskDescription={this.updateTaskDescription}
+                                task={t}
+                            />
 
                         }
                        
                     })}
                 </ul> 
-                <h2>Add New Task</h2>           
-                <div>
-                    <label>Task Description</label>
-                    <input type="text" name="new_task_description" value={this.state.new_task_description} onChange={this.updateFormField}/>
-                    <button onClick={this.addNewTask}>Add</button>
-                </div>
+               <AddNewTask
+                 new_task_description={this.state.new_task_description}
+                 updateFormField={this.updateFormField}
+                 addNewTask={this.addNewTask}
+               />
             </React.Fragment>
         )
     }
