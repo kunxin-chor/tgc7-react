@@ -15,9 +15,9 @@ export default class VendingMachineClass {
     });
 
     this.products = [
-      ...this.state.products.slice(0, index),
+      ...this.products.slice(0, index),
       clonedProduct,
-      ...this.state.products.slice(index + 1)
+      ...this.products.slice(index + 1)
     ];
   }
 

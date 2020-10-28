@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import React from 'react';
 import VendingMachine from './VendingMachine';
+import ImprovedVendingMachine from "./ImprovedVendingMachine";
 
 function App() {
   return (
     <React.Fragment>
-        <VendingMachine/>
+        <ImprovedVendingMachine/>
     </React.Fragment>
   );
 }
