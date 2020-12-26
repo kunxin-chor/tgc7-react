@@ -34,6 +34,7 @@ export default class Counter extends React.Component {
             border: "1px solid black",
             padding: "10px",
             width: "50px",
+            fontSize:`${10 + this.state.count * 5}px`,
             color: this.state.count % 2 ==0 ? 'green' : 'red'
           }}
         >
