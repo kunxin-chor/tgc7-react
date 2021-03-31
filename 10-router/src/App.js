@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactFormSubmitted from "./pages/ContactFormSubmitted";
+import PostPage from "./pages/PostPage"
 
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -26,6 +27,10 @@ function App() {
             <li>
               <Link to="/contact">Contact Us</Link>
             </li>
+            <li>
+                <Link to ="/posts">Posts</Link>
+            </li>
+
           </ul>
         </nav>
 
@@ -41,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/form-submitted">
               <ContactFormSubmitted/>
+          </Route>
+          <Route exact path="/posts">
+                <PostPage/>
           </Route>
 
         </Switch>
